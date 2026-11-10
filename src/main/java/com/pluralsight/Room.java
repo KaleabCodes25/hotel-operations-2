@@ -33,16 +33,22 @@ public class Room {
         return numberOfBeds;
     }
     public void checkIn(){
-        isOccupied = true;
-        isDirty = true;
+        if(isAvailable()){
+            isOccupied = true;
+            isDirty = true;
+        }
+
     }
     public void checkOut(){
         isOccupied = false;
-        isDirty = true;
+
 
     }
     public void cleanRoom(){
-        isDirty = false;
+        if(!isOccupied()){
+            isDirty = false;
+        }
+
     }
 
 

@@ -19,14 +19,14 @@ public class Employee {
     private double payRate;
     private double hoursWorked;
     private double beginTime;
-    private boolean isClockedIn;
 
-    public Employee(int employeeId, String name, String department, double payRate, double hoursWorked) {
+    public Employee(int employeeId, String name, String department, double payRate, double hoursWorked, double beginTime) {
         this.employeeId = employeeId;
         this.name = name;
         this.department = department;
         this.payRate = payRate;
         this.hoursWorked = hoursWorked;
+        this.beginTime = 0;
     }
 
     public int getEmployeeId() {
@@ -84,21 +84,24 @@ public class Employee {
     }
     public void punchIn(double time){
         double beginTime = time;
-        boolean isClockedIn = true;
+
 
     }
     public void punchOut(double time){
-        if(isClockedIn){
-            hoursWorked += time - beginTime;
-            isClockedIn = false;
-        }
+        double duration = time - beginTime;
+        hoursWorked += duration;
+        beginTime = 0;
+
+
     }
 
     public void punchTimeCard(double time){
-        if (!isClockedIn) {
-            punchIn(time);
-        }else{
-            punchOut(time);
+        if( beginTime == 0){
+            beginTime = time;}
+        else {
+            double duration = time - beginTime;
+            hoursWorked += duration;
+            beginTime = 0;
         }
     }
 }
